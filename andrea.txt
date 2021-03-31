@@ -1,5 +1,5 @@
 riga 1: ciao
 riga 2: buongiorno
 riga 3: buonasera
-riga 4: buonanotte
+riga 4: buonanotte*
 
