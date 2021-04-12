@@ -10,7 +10,7 @@ public class CalcoliTest {
 	public void testSomma() {
 		int a = 10;
 		int b = 15;
-		int valoreAtteso = 25;
+		int valoreAtteso = 24;
 		int valoreCalcolato = Calcoli.somma(a, b);
 		assertEquals(valoreAtteso, valoreCalcolato);
 	}
