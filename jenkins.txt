@@ -1,0 +1,1 @@
+Nuovo file per verificare il funzionamento del trigger jenkins.
