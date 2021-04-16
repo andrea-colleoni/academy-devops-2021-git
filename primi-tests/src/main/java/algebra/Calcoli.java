@@ -1,15 +1,18 @@
 package algebra;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 public class Calcoli {
+	
+	private static Logger log = LogManager.getLogger("algebra");
 
 	public static void main(String[] args) {
 		// calcolare l'area di un trapezio con base magg 5  altezza 8
 		// e base minore 3
 		
 		// chiamata di metodo
-		System.out.print("L'area del trapezio Ã¨: ");
-
-		System.out.println(quoziente(prodotto(somma(5, 3), 8), 2));
+		log.info("L'area del trapezio è: " + quoziente(prodotto(somma(5, 3), 8), 2));
 	}
 	
 	// un meotodo che fa la somma
