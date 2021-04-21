@@ -15,6 +15,15 @@ pipeline {
                 -Data e ora: $buildDate"""
             }
         }
+
+        stage('Write build info') {
+            steps {
+                writeFile encoding: 'UTF-8', file: 'info.md', text: """# Informazioni di build
+                - Job name: ${env.JOB_NAME}
+                - Build number: ${env.BUILD_NUMBER}
+                - Build date: $buildDate"""
+            }
+        }
         
         stage('Checkout da Git'){
             steps{
