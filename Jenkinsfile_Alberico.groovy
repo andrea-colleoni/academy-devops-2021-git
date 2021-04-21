@@ -40,7 +40,7 @@ pipeline {
         stage('Maven Test') {
             steps {
                 withMaven(maven: 'Maven') {
-                    sh 'mvn test -f primi-tests/pom.xml -Dwebdriver.gecko.driver=/Users/alberico/Documenti/ModisSpindox/geckodriver-v0.29.1-macos-aarch64.tar'
+                    sh 'mvn test -f primi-tests/pom.xml -Dwebdriver.chrome.driver=../resources/mac/chromedriver'
                 }                
             }
         }

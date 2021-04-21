@@ -43,7 +43,7 @@ pipeline {
         stage('Maven test'){
             steps{
                 withMaven(maven: 'Maven 3.8.1') {
-                   sh 'mvn test -f primi-tests/pom.xml -Dwebdriver.gecko.driver=/Users/matteo/Documents/CloudDevOps/geckodriver/geckodriver'
+                   sh 'mvn test -f primi-tests/pom.xml -Dwebdriver.chrome.driver=/Users/matteo/Documents/CloudDevOps/academy-devops-2021-git/resources/mac/chromedriver'
                 }
             }
         }
