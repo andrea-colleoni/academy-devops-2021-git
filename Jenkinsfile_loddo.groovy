@@ -1,4 +1,4 @@
-def buildDate = new Date().format('yyyy-MM-dd HH:mm:ss')}
+def buildDate = new Date().format('yyyy-MM-dd HH:mm:ss')
 
 pipeline {
     agent any
