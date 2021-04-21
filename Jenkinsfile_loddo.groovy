@@ -47,9 +47,12 @@ pipeline {
         
     }
     post {
-        success {
+        always {
             junit 'primi-tests/target/surefire-reports/TEST-algebra.CalcoliTest.xml'
-           zip archive: true, dir: '', exclude: '', glob: '', overwrite: true, zipFile: '$(env.JOB_NAME)_$(env.Build_NUMBER).zip'
+        }
+
+        success{
+            zip archive: true, dir: '', exclude: '', glob: '', overwrite: true, zipFile: "${env.JOB_NAME}_${env.Build_NUMBER}.zip"
         }
         
        /* failure {
