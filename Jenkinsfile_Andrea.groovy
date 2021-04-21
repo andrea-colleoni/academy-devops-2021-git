@@ -1,3 +1,5 @@
+def buildDate = new Date().format('yyyy-MM-dd HH:mm:ss')
+
 pipeline {
     agent any
     /*
@@ -10,7 +12,7 @@ pipeline {
             steps {
                 echo """Inizio della pipeline: 
                 - Build n. ${env.BUILD_NUMBER} 
-                - Data e ora: """
+                - Data e ora: $BuildDate"""
             }
         }
         stage('Write build info') {
@@ -19,7 +21,7 @@ pipeline {
 
                 - Job name: ${env.JOB_NAME}
                 - Build number: ${env.BUILD_NUMBER}
-                - Build date: """
+                - Build date: $BuildDate"""
             }
         }
         stage('Checkout da GIT') {
