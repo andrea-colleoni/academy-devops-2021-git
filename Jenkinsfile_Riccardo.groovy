@@ -27,20 +27,20 @@ pipeline {
         stage('Checkout da GIT') {
             steps {
                 git branch: 'main', url: 'https://github.com/andrea-colleoni/academy-devops-2021-git.git'
-                bat 'dir'
+                sh 'ls -lrt'
             }
         }
         stage('Maven Compile') {
             steps {
                 withMaven(maven: 'Maven 3.8.1') {
-                    bat 'mvn compile -f primi-tests/pom.xml'
+                    sh 'mvn compile -f primi-tests/pom.xml'
                 }
             }
         }
         stage('Maven Test') {
             steps {
                 withMaven(maven: 'Maven 3.8.1') {
-                    bat 'mvn test -f primi-tests/pom.xml -Dwebdriver.gecko.driver=/C:/Users/andre/Desktop/Temp/Corsi/D-Thinks/DevOps/geckodriver-v0.29.1-win64/geckodriver.exe'
+                    sh 'mvn test -f primi-tests/pom.xml -Dwebdriver.gecko.driver=/C:/Users/andre/Desktop/Temp/Corsi/D-Thinks/DevOps/geckodriver-v0.29.1-win64/geckodriver.exe'
                 }                
             }
         }
@@ -56,9 +56,11 @@ pipeline {
       always {
         junit 'primi-tests/target/surefire-reports/*.xml'
       }
-      success {
-        zip archive: true,   dir: '',   exclude: '', glob: '',  overwrite: true,  zipFile: "${env.JOB_NAME}_${env.Build_NUMBER}.zip"
-      }      
+        success{
+        zip archive: true, dir: '', exclude: '', glob: '', overwrite: true, zipFile: '${env.JOB_NAME}_${env.BUILD_NUMBER}.zip'
+
+        }
+      
       failure {
         emailext (
             body: "La build numero ${env.BUILD_NUMBER}  del job ${env.JOB_NAME} è fallita.", 
