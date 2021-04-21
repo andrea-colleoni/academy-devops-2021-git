@@ -27,20 +27,20 @@ pipeline {
         stage('Checkout da GIT') {
             steps {
                 git branch: 'main', url: 'https://github.com/andrea-colleoni/academy-devops-2021-git.git'
-                bat 'dir'
+                sh 'ls'
             }
         }
         stage('Maven Compile') {
             steps {
                 withMaven(maven: 'Maven 3.8.1') {
-                    bat 'mvn compile -f primi-tests/pom.xml'
+                    sh 'mvn compile -f primi-tests/pom.xml'
                 }
             }
         }
         stage('Maven Test') {
             steps {
                 withMaven(maven: 'Maven 3.8.1') {
-                    bat 'mvn test -f primi-tests/pom.xml -Dwebdriver.chrome.driver=/Users/alessia/Downloads/chromedriver'
+                    sh 'mvn test -f primi-tests/pom.xml -Dwebdriver.chrome.driver=/Users/alessia/Downloads/chromedriver'
                 }                
             }
         }
