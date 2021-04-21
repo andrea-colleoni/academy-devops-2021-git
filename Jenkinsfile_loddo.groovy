@@ -15,6 +15,15 @@ pipeline {
                 -Data e ora: $buildDate"""
             }
         }
+
+        stage('Write build info') {
+            steps {
+                writeFile encoding: 'UTF-8', file: 'info.md', text: """# Informazioni di build
+                - Job name: ${env.JOB_NAME}
+                - Build number: ${env.BUILD_NUMBER}
+                - Build date: $buildDate"""
+            }
+        }
         
         stage('Checkout da Git'){
             steps{
@@ -34,7 +43,7 @@ pipeline {
         stage('Maven test'){
             steps{
                 withMaven(maven: 'Maven 3.8.1') {
-                   sh 'mvn test -f primi-tests/pom.xml -Dwebdriver.gecko.driver=/Users/matteo/Documents/CloudDevOps/geckodriver/geckodriver'
+                   sh 'mvn test -f primi-tests/pom.xml -Dwebdriver.chrome.driver=/Users/matteo/Documents/CloudDevOps/academy-devops-2021-git/resources/mac/chromedriver'
                 }
             }
         }
