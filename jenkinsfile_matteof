@@ -41,12 +41,12 @@ pipeline {
       success {
         junit 'primi-tests/target/surefire-reports/*.xml'
       }
-      failure {
+      /*failure {
         emailext (
             body: "La build numero ${env.BUILD_NUMBER}  del job ${env.JOB_NAME} è fallita.", 
             subject: "Pipeline ${env.JOB_NAME} fallito", 
             to: 'andrea@colleoni.info'
         )
-      }      
+      }*/      
     }
 }
