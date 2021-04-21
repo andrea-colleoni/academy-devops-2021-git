@@ -15,12 +15,15 @@ pipeline {
                 echo """Inizio della pipeline: 
                 - Build n. ${env.BUILD_NUMBER} 
                 - Data e ora: $BuildDate"""
+            }
+        }
+        stage('Write build info') {
+            steps {
+                writeFile encoding: 'UTF-8', file: 'info.md', text: """# Informazioni di build
 
-            writeFile encoding: 'UTF-8', file: 'info.md', text: """# Informazioni di build
-
-            - Job name: ${env.JOB_NAME}
-            - Build number: ${env.BUILD_NUMBER}
-            - Build date: $BuildDate"""
+                - Job name: ${env.JOB_NAME}
+                - Build number: ${env.BUILD_NUMBER}
+                - Build date: $BuildDate"""
             }
         }
         stage('Checkout da GIT') {
