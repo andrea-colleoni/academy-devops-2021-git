@@ -12,7 +12,7 @@ pipeline {
             steps {
                 echo """Inizio della pipeline: 
                 - Build n. ${env.BUILD_NUMBER} 
-                - Data e ora: $BuildDate"""
+                - Data e ora: $buildDate"""
             }
         }
         stage('Write build info') {
@@ -21,7 +21,7 @@ pipeline {
 
                 - Job name: ${env.JOB_NAME}
                 - Build number: ${env.BUILD_NUMBER}
-                - Build date: $BuildDate"""
+                - Build date: $buildDate"""
             }
         }
         stage('Checkout da GIT') {
