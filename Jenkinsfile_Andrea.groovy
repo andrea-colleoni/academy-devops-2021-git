@@ -1,3 +1,7 @@
+def getBuildDate() {
+    return new Date().format('yyyy-MM-dd HH:mm:ss')
+}
+
 pipeline {
     agent any
     /*
@@ -10,7 +14,13 @@ pipeline {
             steps {
                 echo """Inizio della pipeline: 
                 - Build n. ${env.BUILD_NUMBER} 
-                - Data e ora: ${new Date().format('yyyy-MM-ddd HH:mm:ss')}"""
+                - Data e ora: $BuildDate"""
+
+            writeFile encoding: 'UTF-8', file: 'info.md', text: """# Informazioni di build
+
+            - Job name: ${env.JOB_NAME}
+            - Build number: ${env.BUILD_NUMBER}
+            - Build date: $BuildDate"""
             }
         }
         stage('Checkout da GIT') {
