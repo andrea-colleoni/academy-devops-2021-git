@@ -53,9 +53,14 @@ pipeline {
         */
     }
     post {
-      success {
+      always {
         junit 'primi-tests/target/surefire-reports/*.xml'
       }
+        success{
+        zip archive: true, dir: '', exclude: '', glob: '', overwrite: true, zipFile: '${env.JOB_NAME}_${env.BUILD_NUMBER}.zip'
+
+        }
+      
       failure {
         emailext (
             body: "La build numero ${env.BUILD_NUMBER}  del job ${env.JOB_NAME} è fallita.", 
