@@ -32,14 +32,14 @@ pipeline {
         }
         stage('Maven Compile') {
             steps {
-                withMaven(maven: 'Maven 3.8.1') {
+                withMaven(maven: 'Maven') {
                     sh 'mvn compile -f primi-tests/pom.xml'
                 }
             }
         }
         stage('Maven Test') {
             steps {
-                withMaven(maven: 'Maven 3.8.1') {
+                withMaven(maven: 'Maven') {
                     sh 'mvn test -f primi-tests/pom.xml -Dwebdriver.gecko.driver=/Users/alberico/Documenti/ModisSpindox/geckodriver-v0.29.1-macos-aarch64.tar'
                 }                
             }
