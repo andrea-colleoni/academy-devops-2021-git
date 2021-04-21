@@ -1,6 +1,4 @@
-def getBuildDate() {
-    return new Date().format('yyyy-MM-dd HH:mm:ss')
-}
+def buildDate = new Date().format('yyyy-MM-dd HH:mm:ss')}
 
 pipeline {
     agent any
@@ -14,7 +12,7 @@ pipeline {
             steps {
                 echo """Inizio della Pipeline 
                 - Build n. ${env.BUILD_NUMBER}
-                -Data e ora: $BuildDate"""
+                -Data e ora: $buildDate"""
             }
         }
         
