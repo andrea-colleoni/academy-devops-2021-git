@@ -27,7 +27,7 @@ pipeline {
         stage('Checkout da GIT') {
             steps {
                 git branch: 'main', url: 'https://github.com/andrea-colleoni/academy-devops-2021-git.git'
-                bat 'dir'
+                bat 'ls -lrt'
             }
         }
         stage('Maven Compile') {
