@@ -27,7 +27,7 @@ pipeline {
         stage('Maven Test') {
             steps {
                 withMaven(maven: 'Maven') {
-                    bat 'mvn test -f primi-tests/pom.xml -Dwebdriver.chrome.driver=../Users/lored/Downloads/chromedriver.exe
+                    bat 'mvn test -f primi-tests/pom.xml -Dwebdriver.chrome.driver=../Users/lored/Downloads/chromedriver.exe'
                 }                
             }
         }
