@@ -8,7 +8,9 @@ pipeline {
     stages {
         stage('Inizio Pipeline') {
             steps {
-                echo "Inizio della pipeline - Build n. ${env.BUILD_NUMBER}"
+                echo """Inizio della pipeline: 
+                - Build n. ${env.BUILD_NUMBER} 
+                - Data e ora: ${new Date().format('yyyy-MM-ddd HH:mm:ss')}"""
             }
         }
         stage('Checkout da GIT') {
