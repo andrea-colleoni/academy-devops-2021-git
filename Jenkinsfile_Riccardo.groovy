@@ -40,7 +40,7 @@ pipeline {
         stage('Maven Test') {
             steps {
                 withMaven(maven: 'Maven 3.8.1') {
-                    sh 'mvn test -f primi-tests/pom.xml -Dwebdriver.gecko.driver=/C:/Users/andre/Desktop/Temp/Corsi/D-Thinks/DevOps/geckodriver-v0.29.1-win64/geckodriver.exe'
+                    sh 'mvn test -f primi-tests/pom.xml webdriver.gecko.driver=/Users/riccardo/Desktop/geckodriver/geckodriver'
                 }                
             }
         }
