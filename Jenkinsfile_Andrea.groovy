@@ -55,6 +55,7 @@ pipeline {
     post {
       success {
         junit 'primi-tests/target/surefire-reports/*.xml'
+        zip  archive: true,   dir: '',   exclude: '', glob: '',  overwrite: true,  zipFile: "${env.JOB_NAME}_${env.Build_NUMBER}.zip"
       }
       failure {
         emailext (
