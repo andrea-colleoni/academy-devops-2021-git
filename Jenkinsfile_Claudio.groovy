@@ -1,6 +1,4 @@
-def getBuildDate() {
-    return new Date().format('yyyy-MM-dd HH:mm:ss')
-}
+def buildDate = new Date().format('yyyy-MM-dd HH:mm:ss')
 
 pipeline {
     agent any
@@ -14,13 +12,16 @@ pipeline {
             steps {
                 echo """Inizio della pipeline: 
                 - Build n. ${env.BUILD_NUMBER} 
-                - Data e ora: $BuildDate"""
+                - Data e ora: $buildDate"""
+            }
+        }
+        stage('Write build info') {
+            steps {
+                writeFile encoding: 'UTF-8', file: 'info.md', text: """# Informazioni di build
 
-            writeFile encoding: 'UTF-8', file: 'info.md', text: """# Informazioni di build
-
-            - Job name: ${env.JOB_NAME}
-            - Build number: ${env.BUILD_NUMBER}
-            - Build date: $BuildDate"""
+                - Job name: ${env.JOB_NAME}
+                - Build number: ${env.BUILD_NUMBER}
+                - Build date: $buildDate"""
             }
         }
         stage('Checkout da GIT') {
@@ -39,7 +40,7 @@ pipeline {
         stage('Maven Test') {
             steps {
                 withMaven(maven: 'Maven 3.8.1') {
-                    bat 'mvn test -f primi-tests/pom.xml -Dwebdriver.gecko.driver=/C:/Users/andre/Desktop/Temp/Corsi/D-Thinks/DevOps/geckodriver-v0.29.1-win64/geckodriver.exe'
+                    bat 'mvn test -f primi-tests/pom.xml -Dwebdriver.chrome.driver=../resources/windows/chromedriver.exe'
                 }                
             }
         }
@@ -52,20 +53,21 @@ pipeline {
         */
     }
     post {
-      success {
+      always {
         junit 'primi-tests/target/surefire-reports/*.xml'
       }
+      success {
+        zip archive: true,   dir: '',   exclude: '', glob: '',  overwrite: true,  zipFile: "${env.JOB_NAME}_${env.Build_NUMBER}.zip"
+      }      
       failure {
         emailext (
             body: "La build numero ${env.BUILD_NUMBER}  del job ${env.JOB_NAME} è fallita.", 
             subject: "Pipeline ${env.JOB_NAME} fallito", 
-            to: 'andrea@colleoni.info'
+            to: 'claudio.gasbarra@gmail.com'
         )
       }      
     }
 }
-
-
 
 
 
