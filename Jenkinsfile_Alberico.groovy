@@ -40,7 +40,7 @@ pipeline {
         stage('Maven Test') {
             steps {
                 withMaven(maven: 'Maven') {
-                    sh 'mvn test -f primi-tests/pom.xml -Dwebdriver.gecko.driver=../resources/mac/chromedriver'
+                    sh 'mvn test -f primi-tests/pom.xml -Dwebdriver.chrome.driver=../resources/mac/chromedriver'
                 }                
             }
         }
