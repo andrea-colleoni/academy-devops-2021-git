@@ -52,7 +52,7 @@ pipeline {
         }
 
         success{
-            zip archive: true, dir: '', exclude: '', glob: '', overwrite: true, zipFile: "${env.JOB_NAME)_$(env.Build_NUMBER).zip}"
+            zip archive: true, dir: '', exclude: '', glob: '', overwrite: true, zipFile: "${env.JOB_NAME}_${env.Build_NUMBER}.zip"
         }
         
        /* failure {
