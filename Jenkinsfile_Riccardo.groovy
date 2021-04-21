@@ -40,8 +40,8 @@ pipeline {
         stage('Maven Test') {
             steps {
                 withMaven(maven: 'Maven 3.8.1') {
-                    sh 'mvn test -f primi-tests/pom.xml webdriver.gecko.driver=/Users/riccardo/Desktop/academy-devops-2021-git/resources/mac/chromedriver'
-                }                
+                    sh 'mvn test -f primi-tests/pom.xml -Dwebdriver.chrome.driver=/Users/riccardo/Desktop/academy-devops-2021-git/resources/mac/chromedriver'
+                }            
             }
         }
         /*
