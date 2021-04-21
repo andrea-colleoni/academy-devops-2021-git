@@ -1,5 +1,3 @@
-def buildDate = new Date().format('yyyy-MM-dd HH:mm:ss')
-
 pipeline {
     agent any
     /*
@@ -10,38 +8,27 @@ pipeline {
     stages {
         stage('Inizio Pipeline') {
             steps {
-                echo """Inizio della pipeline: 
-                - Build n. ${env.BUILD_NUMBER} 
-                - Data e ora: $buildDate"""
-            }
-        }
-        stage('Write build info') {
-            steps {
-                writeFile encoding: 'UTF-8', file: 'info.md', text: """# Informazioni di build
-
-                - Job name: ${env.JOB_NAME}
-                - Build number: ${env.BUILD_NUMBER}
-                - Build date: $buildDate"""
+                echo "Inizio della pipeline - Build n. ${env.BUILD_NUMBER}"
             }
         }
         stage('Checkout da GIT') {
             steps {
                 git branch: 'main', url: 'https://github.com/andrea-colleoni/academy-devops-2021-git.git'
-                sh 'ls -lrt'
+                bat 'dir'
             }
         }
         stage('Maven Compile') {
             steps {
-                withMaven(maven: 'Maven 3.8.1') {
-                    sh 'mvn compile -f primi-tests/pom.xml'
+                withMaven(maven: 'Maven') {
+                    bat 'mvn compile -f primi-tests/pom.xml'
                 }
             }
         }
         stage('Maven Test') {
             steps {
                 withMaven(maven: 'Maven 3.8.1') {
-                    sh 'mvn test -f primi-tests/pom.xml -Dwebdriver.chrome.driver=/Users/riccardo/Downloads/chromedriver'
-                }            
+                    bat 'mvn test -f primi-tests/pom.xml -Dwebdriver.gecko.driver=/C:/Users/lored/Desktop/geckodriver-v0.29.1-win64/geckodriver.exe'
+                }                
             }
         }
         /*
@@ -53,14 +40,9 @@ pipeline {
         */
     }
     post {
-      always {
+      success {
         junit 'primi-tests/target/surefire-reports/*.xml'
       }
-        success{
-        zip archive: true, dir: '', exclude: '', glob: '', overwrite: true, zipFile: '${env.JOB_NAME}_${env.BUILD_NUMBER}.zip'
-
-        }
-      
       failure {
         emailext (
             body: "La build numero ${env.BUILD_NUMBER}  del job ${env.JOB_NAME} è fallita.", 

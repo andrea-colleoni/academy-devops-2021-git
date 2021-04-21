@@ -27,7 +27,7 @@ pipeline {
         stage('Checkout da GIT') {
             steps {
                 git branch: 'main', url: 'https://github.com/andrea-colleoni/academy-devops-2021-git.git'
-                sh 'ls -lrt'
+                sh 'ls'
             }
         }
         stage('Maven Compile') {
@@ -40,8 +40,8 @@ pipeline {
         stage('Maven Test') {
             steps {
                 withMaven(maven: 'Maven 3.8.1') {
-                    sh 'mvn test -f primi-tests/pom.xml -Dwebdriver.chrome.driver=/Users/riccardo/Downloads/chromedriver'
-                }            
+                    sh 'mvn test -f primi-tests/pom.xml -Dwebdriver.chrome.driver=/Users/alessia/Downloads/chromedriver'
+                }                
             }
         }
         /*
@@ -56,11 +56,9 @@ pipeline {
       always {
         junit 'primi-tests/target/surefire-reports/*.xml'
       }
-        success{
-        zip archive: true, dir: '', exclude: '', glob: '', overwrite: true, zipFile: '${env.JOB_NAME}_${env.BUILD_NUMBER}.zip'
-
-        }
-      
+      success {
+        zip archive: true,   dir: '',   exclude: '', glob: '',  overwrite: true,  zipFile: "${env.JOB_NAME}_${env.Build_NUMBER}.zip"
+      }      
       failure {
         emailext (
             body: "La build numero ${env.BUILD_NUMBER}  del job ${env.JOB_NAME} è fallita.", 
