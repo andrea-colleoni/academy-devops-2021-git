@@ -31,11 +31,13 @@ pipeline {
                 }                
             }
         }
+        /*
         stage('Fail!') {
             steps {
                 bat 'pippo'
             }
-        } 
+        }
+        */
     }
     post {
       success {
