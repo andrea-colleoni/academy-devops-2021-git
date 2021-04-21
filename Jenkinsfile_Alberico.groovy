@@ -33,14 +33,14 @@ pipeline {
         stage('Maven Compile') {
             steps {
                 withMaven(maven: 'Maven 3.8.1') {
-                    sh 'mvn compile -f /Users/alberico/Documenti/ModisSpindox/GeometriaJenkis/Geometria/pom.xml'
+                    sh 'mvn compile -f primi-tests/pom.xml'
                 }
             }
         }
         stage('Maven Test') {
             steps {
                 withMaven(maven: 'Maven 3.8.1') {
-                    sh 'mvn test -f /Users/alberico/Documenti/ModisSpindox/GeometriaJenkis/Geometria/pom.xml -Dwebdriver.gecko.driver=/Users/alberico/Documenti/ModisSpindox/geckodriver-v0.29.1-macos-aarch64.tar'
+                    sh 'mvn test -f primi-tests/pom.xml -Dwebdriver.gecko.driver=/Users/alberico/Documenti/ModisSpindox/geckodriver-v0.29.1-macos-aarch64.tar'
                 }                
             }
         }
